@@ -9,9 +9,11 @@
             class="cell"
             @click="incrementCellColor(cell)"
             :style="bgColorStyle(cell)"
+            @mousemove="mouseMoves(cell, $event)"
           ></div>
         </div>
       </div>
+      <button @click="reset">Reset</button>
     </div>
   </div>
 </template>
@@ -33,6 +35,13 @@ export default {
     },
     bgColorStyle(cell) {
       return `background-color: rgb(${cell.color.r},${cell.color.g},${cell.color.b})`;
+    },
+    mouseMoves(cell, event) {
+      if (event.buttons != 1) return;
+      cell.color = rgb();
+    },
+    reset() {
+      this.grid = new GameGrid(12, { color: { r: 240, g: 240, b: 240 } });
     }
   }
 };
@@ -59,5 +68,12 @@ body {
   width: 40px;
   border: 1px solid gray;
   margin: 2px;
+}
+
+button {
+  padding: 10px;
+  width: 200px;
+  background-color: indianred;
+  color: white;
 }
 </style>
